@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
     "express": "^4.18.1",
     "g": "^2.0.1",
     "heroku": "^7.63.4",
+    "nodemon": "^2.0.20",
     "pg": "^8.8.0",
     "sequelize": "^6.23.2"
   }
