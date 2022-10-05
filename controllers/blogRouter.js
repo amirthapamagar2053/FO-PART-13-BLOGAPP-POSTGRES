@@ -8,7 +8,7 @@ const blogFinder = async (req, res, next) => {
 };
 
 blogRouter.get("/", async (req, res) => {
-  const blogs = await Blog.findAll();
+  const blogs = await Blog.findAll(); 
   res.json(blogs);
 });
 
@@ -30,7 +30,7 @@ blogRouter.get("/:id", blogFinder, async (req, res) => {
 });
 
 blogRouter.delete("/:id", blogFinder, async (req, res) => {
-  if (req.blog) {
+  if (req.blog ) {
     await req.blog.destroy();
   }
   res.status(204).end();
