@@ -30,6 +30,9 @@ blogRouter.get("/", async (req, res) => {
     where.title = {
       [Op.substring]: req.query.search,
     };
+    where.author = {
+      [Op.substring]: req.query.search,
+    };
   }
 
   const blogs = await Blog.findAll({
@@ -40,7 +43,7 @@ blogRouter.get("/", async (req, res) => {
     },
     where,
   });
-  res.json(blogs);
+  res.json(blogs.sort((a, b) => b.likes - a.likes));
 });
 
 blogRouter.post("/", tokenExtractor, async (req, res) => {

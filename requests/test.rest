@@ -43,10 +43,10 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluM0BnbWFpbC5jb20iLCJpZCI6MywiaWF0IjoxNjY2MDE5NjQ4fQ.y5V8tQAAemKVl0Y0DQC38sUgJYod7qfARTs-7SyUCoc
 
 {
-    "author":"Test for token 3 by admin 3  react",
+    "author":"High likes",
     "url":"google.com",
-    "title":"test for toekn 3 by admin 3 react",
-    "likes":"10"
+    "title":"High likes",
+    "likes":"12"
 }
 
 ###
