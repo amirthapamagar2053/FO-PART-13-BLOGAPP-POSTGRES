@@ -1,6 +1,22 @@
 const blogRouter = require("express").Router();
+const jwt = require("jsonwebtoken");
+const { SECRET } = require("../util/config");
 
-const { Blog } = require("../models");
+const { Blog, User } = require("../models");
+
+const tokenExtractor = (req, res, next) => {
+  const authorization = req.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    try {
+      req.decodedToken = jwt.verify(authorization.substring(7), SECRET);
+    } catch {
+      return res.status(401).json({ error: "token invalid" });
+    }
+  } else {
+    return res.status(401).json({ error: "token missing" });
+  }
+  next();
+};
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id);
@@ -12,9 +28,12 @@ blogRouter.get("/", async (req, res) => {
   res.json(blogs);
 });
 
-blogRouter.post("/", async (req, res) => {
+blogRouter.post("/", tokenExtractor, async (req, res) => {
   try {
-    const blog = await Blog.create(req.body);
+    const blog = await Blog.create({
+      ...req.body,
+      userId: req.decodedToken.id,
+    });
     res.json(blog);
   } catch (error) {
     return res.status(400).json({ error });
@@ -29,9 +48,12 @@ blogRouter.get("/:id", blogFinder, async (req, res) => {
   }
 });
 
-blogRouter.delete("/:id", blogFinder, async (req, res) => {
-  if (req.blog) {
-    await req.blog.destroy();
+blogRouter.delete("/:id", tokenExtractor, blogFinder, async (req, res) => {
+  if (req.decodedToken.id === req.blog.userId) {
+    if (req.blog) {
+      await req.blog.destroy();
+      res.json({ delted: "the blog has been deleted" });
+    }
   }
   res.status(204).end();
 });

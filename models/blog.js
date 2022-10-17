@@ -14,7 +14,7 @@ Blog.init(
       type: DataTypes.TEXT,
     },
     url: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     title: {
