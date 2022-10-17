@@ -16,8 +16,8 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "username":"admin2@gmail.com",
-    "name":"admin2"
+    "username":"admin3@gmail.com",
+    "name":"admin3"
 }
 
 ###
@@ -33,19 +33,19 @@ POST http://localhost:3001/api/login/
 Content-Type: application/json
 
 {
-    "username":"admin@gmail.com",
+    "username":"admin3@gmail.com",
     "password":"secret"
 }
 
 ###
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMkBnbWFpbC5jb20iLCJpZCI6MiwiaWF0IjoxNjY2MDE4NDY2fQ.TDyBp5Cxr8VBsQY3a7qv0PnsduntmDUGe8afU73quWc
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluM0BnbWFpbC5jb20iLCJpZCI6MywiaWF0IjoxNjY2MDE5NjQ4fQ.y5V8tQAAemKVl0Y0DQC38sUgJYod7qfARTs-7SyUCoc
 
 {
-    "author":"Test for token 2 by admin 2",
+    "author":"Test for token 3 by admin 3",
     "url":"google.com",
-    "title":"test for toekn 2 by admin 2",
+    "title":"test for toekn 3 by admin 3",
     "likes":"10"
 }
 
