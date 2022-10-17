@@ -5,10 +5,12 @@ const { PORT } = require("./util/config");
 const { connectToDatabase } = require("./util/db");
 
 const blogRouter = require("./controllers/blogRouter");
+const userRouter = require("./controllers/userRouter");
 
 app.use(express.json());
 
 app.use("/api/blogs", blogRouter);
+app.use("/api/users", userRouter);
 
 const start = async () => {
   await connectToDatabase();

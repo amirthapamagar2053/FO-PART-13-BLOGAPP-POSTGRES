@@ -8,5 +8,22 @@ PUT  http://localhost:3001/api/blogs/2
 Content-Type: application/json
 
 {
-    "likes":3
+    "likes":6
+}
+
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username":"admin2",
+    "name":"test2"
+}
+
+###
+PUT http://localhost:3001/api/users/admin
+Content-Type: application/json
+
+{
+    "username":"changed"
 }
