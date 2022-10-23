@@ -1,22 +1,7 @@
 const blogRouter = require("express").Router();
-const jwt = require("jsonwebtoken");
-const { SECRET } = require("../util/config");
 const { Op } = require("sequelize");
 const { Blog, User } = require("../models");
-
-const tokenExtractor = (req, res, next) => {
-  const authorization = req.get("authorization");
-  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
-    try {
-      req.decodedToken = jwt.verify(authorization.substring(7), SECRET);
-    } catch {
-      return res.status(401).json({ error: "token invalid" });
-    }
-  } else {
-    return res.status(401).json({ error: "token missing" });
-  }
-  next();
-};
+const { tokenExtractor, userExtractor } = require("../util/middleware");
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id);
@@ -46,13 +31,20 @@ blogRouter.get("/", async (req, res) => {
   res.json(blogs.sort((a, b) => b.likes - a.likes));
 });
 
-blogRouter.post("/", tokenExtractor, async (req, res) => {
+blogRouter.post("/", tokenExtractor, userExtractor, async (req, res) => {
   try {
-    const blog = await Blog.create({
-      ...req.body,
-      userId: req.decodedToken.id,
-    });
-    res.json(blog);
+    if (
+      Number(req.body.year) < 1991 ||
+      Number(req.body.year) > new Date().getFullYear()
+    )
+      res.json({ error: "invalid year of creation" });
+    else {
+      const blog = await Blog.create({
+        ...req.body,
+        userId: req.user.id,
+      });
+      res.json(blog);
+    }
   } catch (error) {
     return res.status(400).json({ error });
   }
